@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheetify</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.all.min.js"></script>
+
+    <style>
+        footer {
+            position: fixed;
+            text-align: center;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body style="background-color: #fdf6fb;">
+
+    <h1 style="align-items: center; text-align: center; padding-top: 40px; padding-bottom: 10px; font-weight: bold;">Reisiplaneerija</h1>
+    <h6 style="align-items: center; text-align: center; padding-bottom: 30px;">Sisesta Bookingu/AirBnB link & kirjeldus</h6>
+
+    <form action="https://sheetdb.io/api/v1/ccbww35muax7a" method="POST" id="sheetdb-form">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default" style="font-weight: bold;">Link siia -></span>
+            </div>
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="data[link]" id="link" placeholder="Sisesta Booking/AirBnB link siia...">
+        </div>
+
+        <br>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-default" style="font-weight: bold;">Lühikirjeldus siia -></span>
+            </div>
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="data[kirjeldus]" id="description" placeholder="Näiteks hea asukoht rannale, soodne, normi interioriga vms...">
+        </div>
+        <div class="col text-center">
+            <button type="submit" class="btn btn-success">SALVESTA</button>
+        </div>
+
+    </form>
+
+    <br>
+    <div class="col text-center">
+        <img src="dance.gif" alt="GIF" width="250"/>
+    </div>
+    <br>
+
+    <div class="col text-center">
+        <a href="https://docs.google.com/spreadsheets/d/1eQWQ0bF9P-Gw-fCGoX5s2xV0nxRtFJu19jUUCI7c-kQ/edit#gid=0">
+            <button type="button" class="btn btn-secondary">Ava Google Sheetsi fail</button>
+        </a>
+    </div>
+
+    <footer class="fixed-bottom">
+        <p>Oliver 2022</p>
+    </footer>
+</body>
+
+<script>
+    var form = document.getElementById('sheetdb-form');
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+        fetch(form.action, {
+            method : "POST",
+            body: new FormData(document.getElementById("sheetdb-form")),
+        }).then(
+            response => response.json()
+        ).then((html) => {
+        // you can put any JS code here
+        Swal.fire({
+            icon: 'success',
+            title: 'Salvestatud!',
+            text: '😎😎😎',
+        })
+        document.getElementById('link').value = "";
+        document.getElementById('description').value = "";
+        });
+    });
+</script>
+
+</html>
